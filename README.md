@@ -1,5 +1,5 @@
 # Introduction to Machine Learning
 
-A collection of python notebooks discussing the introductory concepts in machine learning.
+This is a collection of python notebooks discussing the introductory concepts in machine learning.
 These are done as a part of my learning processes, course assignments etc. I will be updating 
-the repository with new topics when I cover them.
+the repository with new topics once I cover them.
