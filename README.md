@@ -9,3 +9,6 @@ the repository with new topics once I cover them. Some of the topics covered so 
 * k-Nearest Neighbors classifier
 * Hidden Markov Model
 * Linear regression
+* Naive-Bayes Classifier
+* Logistic Regression
+* Support Vector Machines
