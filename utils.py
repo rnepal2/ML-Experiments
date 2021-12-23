@@ -31,8 +31,9 @@ def optimal_cutoff(target, predicted):
     
     return round(list(roc_t['threshold'])[0], 2)
 
+
 def plot_confusion_matrix(y_true, y_pred):
-    # confusion matrix
+    # confusion matrix: for binary classification results
     conf_matrix = confusion_matrix(y_true, y_pred)
     data = conf_matrix.transpose()  
     
@@ -46,6 +47,52 @@ def plot_confusion_matrix(y_true, y_pred):
     plt.yticks([])
     plt.title("True label\n 0  {}     1\n".format(" "*18), fontsize=14)
     plt.ylabel("Predicted label\n 1   {}     0".format(" "*18), fontsize=14)
+
+    
+def plot_confusion_matrix2(cm, classes, normalize=False):
+    """
+        Plots confusion matrix for multi-class classification results
+        Input: 
+            confusion matrix, list of classes, 
+            classes: list of unique classes (pass the str class names)
+            If normalize = True: plots the normalized confusion matrix, 
+                           Otherwise absolute numbers
+        Output:
+            Plots and show the confusion matrix  
+    """
+    cm = np.array(cm)
+    n_class = len(classes)
+    if normalize:
+        np.set_printoptions(precision=3)       
+        ncm = np.zeros((n_class, n_class))
+        for i in range(n_class):
+            for j in range(n_class):
+                ncm[i, j] = cm[i, j]/sum(cm[i, :])
+        cm = ncm
+        
+    vmin, vmax = min(cm.flatten()), max(cm.flatten())   
+    plt.figure(figsize=(8, 8))
+    img = plt.imshow(cm, interpolation='nearest', cmap='Blues', vmin=vmin, vmax=vmax)
+    plt.title("Confusion matrix")
+    plt.colorbar(img, shrink=0.7)
+    
+    ticks = np.arange(n_class)
+    plt.xticks(ticks, classes, rotation=0, fontsize=14)
+    plt.yticks(ticks, classes, rotation=90, fontsize=14)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 20.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 fontsize=14, 
+                 color="white" if cm[i, j] > thresh else "black"
+                 )
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.show()
+    
     
 def draw_roc_curve(y_true, y_proba):
     '''
